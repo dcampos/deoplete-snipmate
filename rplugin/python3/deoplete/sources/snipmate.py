@@ -5,22 +5,25 @@ class Source(Base):
         Base.__init__(self, vim)
 
         self.name = "snipmate"
-        self.mark = "[snip]"
+        self.mark = "[SM]"
         self.rank = 8
         self.is_volatile = True
 
     def gather_candidates(self, context):
         suggestions = []
-        word = self.vim.eval('snipMate#WordBelowCursor()')
+        self.vim.out_write('complete_str: ' + context['complete_str'] + "\n")
+        word = context['complete_str']
         snippets = self.vim.eval(
-            "snipMate#GetSnippetsForWordBelowCursorForComplete('{}')".format(context['complete_str']))
+            "snipMate#GetSnippetsForWordBelowCursor('{}', 0)".format(word))
         for snippet in snippets:
-            suggestions.append(
-                {
-                    "word": snippet['word'],
-                    "menu": self.mark + " " + snippet['menu'],
-                    "dup": 1,
-                    "kind": "snippet",
-                }
-            )
+            for desc, value in snippet[1].items():
+                suggestions.append(
+                    {
+                        "word": snippet[0],
+                        "menu": self.mark + ' ' + desc,
+                        "dup": 1,
+                        "kind": "snippet",
+                        "user_data": value[0]
+                    }
+                )
         return suggestions
