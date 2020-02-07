@@ -9,7 +9,7 @@ class Source(Base):
 
         self.name = "snipmate"
         self.mark = "[SM]"
-        self.rank = 8
+        self.rank = 1000
         self.is_volatile = True
 
     def gather_candidates(self, context):
