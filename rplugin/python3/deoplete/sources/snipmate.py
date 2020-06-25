@@ -3,6 +3,7 @@ from functools import lru_cache
 import json
 import re
 
+
 class Source(Base):
     def __init__(self, vim):
         Base.__init__(self, vim)
@@ -30,7 +31,7 @@ class Source(Base):
                         "word": word,
                         "menu": self.mark + ' ' + menu_preview,
                         "dup": 1,
-                        "kind": "snippet",
+                        "kind": "Snippet",
                         "user_data": user_data
                     }
                 )
