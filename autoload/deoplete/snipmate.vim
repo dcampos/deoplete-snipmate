@@ -54,6 +54,7 @@ func! deoplete#snipmate#try_expand() abort
 endfunc
 
 func! deoplete#snipmate#_expand() abort
+    echo ''
     let &undolevels = &undolevels
     let word = s:snippet_data.word
     let col = col('.') - len(word)
